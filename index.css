@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+@media print {
+    @page {
+        size: portrait;
+        margin: 0.5cm;
+    }
+    
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .no-print, 
+    aside, 
+    header, 
+    nav, 
+    button,
+    .fixed { 
+        display: none !important; 
+    }
+    
+    #root, body, html, main {
+        display: block !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background-color: white !important;
+        position: static !important;
+    }
+
+    main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .print-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        display: block !important;
+    }
+
+    /* Force standard form styling for print */
+    .print-header-bar {
+        background-color: #000 !important;
+        color: #fff !important;
+        padding: 4px 8px !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        font-size: 12px !important;
+        text-align: center !important;
+        border: 1px solid #000 !important;
+    }
+
+    .print-border-box {
+        border: 1px solid #000 !important;
+    }
+
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+    
+    th, td {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+        padding: 4px !important;
+    }
+
+    .check-box {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        margin-right: 4px;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    .check-box.checked::after {
+        content: 'X';
+        position: absolute;
+        top: -2px;
+        left: 1px;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    h1, h2, h3, h4, p, span {
+        color: #000 !important;
+    }
+}
