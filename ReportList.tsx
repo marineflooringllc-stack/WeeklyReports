@@ -75,80 +75,80 @@ const ReportCard: React.FC<{
 
   return (
     <div 
-      className="bg-white p-4 md:p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all group relative overflow-hidden"
+      className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all group relative overflow-hidden"
     >
-      <div className="flex flex-col md:flex-row md:items-start gap-4">
-        <div className="flex items-center justify-between md:justify-start gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+        <div className="flex items-center justify-between sm:justify-start gap-4">
           {!isTrashView && (
             <div 
               onClick={(e) => toggleSelect(String(report.id), e)}
-              className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all cursor-pointer ${selectedIds.has(String(report.id)) ? 'bg-blue-600 border-blue-600' : 'border-slate-200'}`}
+              className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg border-2 flex items-center justify-center transition-all cursor-pointer shrink-0 ${selectedIds.has(String(report.id)) ? 'bg-blue-600 border-blue-600' : 'border-slate-200'}`}
             >
-              {selectedIds.has(String(report.id)) && <div className="w-2 h-2 bg-white rounded-full" />}
+              {selectedIds.has(String(report.id)) && <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full" />}
             </div>
           )}
           
-          <div className="flex items-center gap-3 md:hidden">
-            <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.4)] ${report.compartments.every(c => isQCPassed(c.phases)) ? 'bg-emerald-500' : 'bg-blue-600'}`} />
-            <span className="font-black uppercase text-slate-600 tracking-wider text-[10px]">{report.vessel}</span>
+          <div className="flex items-center gap-2 sm:hidden">
+            <div className={`w-1.5 h-1.5 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.4)] ${report.compartments.every(c => isQCPassed(c.phases)) ? 'bg-emerald-500' : 'bg-blue-600'}`} />
+            <span className="font-black uppercase text-slate-600 tracking-wider text-[9px]">{report.vessel}</span>
           </div>
         </div>
         
-        <div className="flex-1">
-          <div className="hidden md:flex items-center gap-3 mb-2 cursor-pointer" onClick={() => onView(String(report.id))}>
+        <div className="flex-1 min-w-0">
+          <div className="hidden sm:flex items-center gap-3 mb-2 cursor-pointer" onClick={() => onView(String(report.id))}>
             <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.4)] ${report.compartments.every(c => isQCPassed(c.phases)) ? 'bg-emerald-500' : 'bg-blue-600'}`} />
-            <span className="font-black uppercase text-slate-600 tracking-wider text-[11px]">{report.vessel}</span>
+            <span className="font-black uppercase text-slate-600 tracking-wider text-[11px] truncate">{report.vessel}</span>
             <span className="text-slate-300 font-light">•</span>
-            <span className="font-bold text-slate-900 text-sm">
+            <span className="font-bold text-slate-900 text-sm whitespace-nowrap">
               {formatDate(report.weekStart)} — {formatDate(report.weekEnd)}
             </span>
           </div>
 
-          <div className="md:hidden mb-2 cursor-pointer" onClick={() => onView(String(report.id))}>
-             <span className="font-bold text-slate-900 text-sm">
+          <div className="sm:hidden mb-2 cursor-pointer" onClick={() => onView(String(report.id))}>
+             <span className="font-bold text-slate-900 text-xs">
               {formatDate(report.weekStart)} — {formatDate(report.weekEnd)}
             </span>
           </div>
           
-          <div className="flex flex-wrap gap-x-3 gap-y-1 cursor-pointer" onClick={() => onView(String(report.id))}>
+          <div className="flex flex-wrap gap-x-2 gap-y-1 cursor-pointer" onClick={() => onView(String(report.id))}>
             {(report.compartments || []).slice(0, 3).map((comp, cIdx) => (
-              <span key={cIdx} className={`text-[10px] md:text-[11px] font-medium ${isQCPassed(comp.phases) ? 'text-emerald-500' : 'text-slate-400'}`}>
+              <span key={cIdx} className={`text-[9px] sm:text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-50 ${isQCPassed(comp.phases) ? 'text-emerald-600' : 'text-slate-500'}`}>
                 {comp.name}
               </span>
             ))}
             {report.compartments.length > 3 && (
-              <span className="text-[10px] md:text-[11px] font-medium text-slate-300">+{report.compartments.length - 3} more</span>
+              <span className="text-[9px] sm:text-[11px] font-medium text-slate-400 px-2 py-0.5">+{report.compartments.length - 3} more</span>
             )}
           </div>
         </div>
 
-        {/* Action Buttons - Integrated into the card flow for better reliability */}
-        <div className="flex gap-2 no-print mt-4 md:mt-0">
+        {/* Action Buttons */}
+        <div className="flex gap-2 no-print mt-3 sm:mt-0 w-full sm:w-auto justify-end border-t border-slate-50 sm:border-0 pt-3 sm:pt-0">
           <button 
             onClick={(e) => { e.stopPropagation(); onView(String(report.id)); }}
-            className="p-3 bg-slate-100 text-slate-600 rounded-xl cursor-pointer hover:bg-slate-200 flex items-center justify-center transition-colors"
+            className="p-2 sm:p-3 bg-slate-100 text-slate-600 rounded-lg sm:rounded-xl cursor-pointer hover:bg-slate-200 flex items-center justify-center transition-colors"
             title="View Details"
           >
-            <Eye size={18} />
+            <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           
           {!isTrashView && canManage && (
             <>
               <button 
                 onClick={(e) => { e.stopPropagation(); onEdit(String(report.id)); }}
-                className="p-3 bg-blue-50 text-blue-600 rounded-xl cursor-pointer hover:bg-blue-100 flex items-center justify-center transition-colors"
+                className="p-2 sm:p-3 bg-blue-50 text-blue-600 rounded-lg sm:rounded-xl cursor-pointer hover:bg-blue-100 flex items-center justify-center transition-colors"
                 title="Edit Report"
               >
-                <Edit size={18} />
+                <Edit className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               
               <button 
                 onClick={handleTrashClick}
-                className={`flex items-center justify-center gap-2 px-3 py-3 rounded-xl transition-all duration-300 ${isConfirming ? 'bg-red-600 text-white w-32' : 'bg-red-50 text-red-600 w-12'}`}
+                className={`flex items-center justify-center gap-2 px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-xl transition-all duration-300 ${isConfirming ? 'bg-red-600 text-white w-24 sm:w-32' : 'bg-red-50 text-red-600 w-10 sm:w-12'}`}
                 title={isConfirming ? "Click again to confirm" : "Move to Trash"}
               >
-                <Trash2 size={18} />
-                {isConfirming && <span className="text-[10px] font-black uppercase tracking-wider whitespace-nowrap">Confirm?</span>}
+                <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                {isConfirming && <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider whitespace-nowrap">Confirm?</span>}
               </button>
             </>
           )}
@@ -156,10 +156,10 @@ const ReportCard: React.FC<{
           {isTrashView && onRestore && (
             <button 
               onClick={(e) => { e.stopPropagation(); onRestore(String(report.id)); }}
-              className="p-3 bg-emerald-50 text-emerald-600 rounded-xl cursor-pointer hover:bg-emerald-100 flex items-center justify-center transition-colors"
+              className="p-2 sm:p-3 bg-emerald-50 text-emerald-600 rounded-lg sm:rounded-xl cursor-pointer hover:bg-emerald-100 flex items-center justify-center transition-colors"
               title="Restore Report"
             >
-              <RotateCcw size={18} />
+              <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           )}
         </div>
@@ -217,41 +217,41 @@ const ReportList: React.FC<Props> = ({ reports, isTrashView, canManage, onAdd, o
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-20">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
         <div>
-          <h2 className="text-2xl font-black text-slate-900">{isTrashView ? 'Deleted Archive' : 'Weekly Reports'}</h2>
-          <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900">{isTrashView ? 'Deleted Archive' : 'Weekly Reports'}</h2>
+          <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-1">
             {isTrashView ? 'Recover deleted documents' : 'Manage vessel progress reports'}
           </p>
         </div>
         
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">
           {!isTrashView && (
             <button 
               onClick={handleBulkExport} 
-              className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-2xl font-black hover:bg-slate-50 transition-all shadow-sm active:scale-95"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl sm:rounded-2xl font-black hover:bg-slate-50 transition-all shadow-sm active:scale-95 text-sm"
             >
-              <Download className="w-4 h-4" /> {selectedIds.size > 0 ? `Export (${selectedIds.size})` : 'Export All'}
+              <Download className="w-4 h-4" /> <span className="hidden sm:inline">{selectedIds.size > 0 ? `Export (${selectedIds.size})` : 'Export All'}</span><span className="sm:hidden">{selectedIds.size > 0 ? `(${selectedIds.size})` : 'Export'}</span>
             </button>
           )}
           {!isTrashView && canManage && (
             <button 
               onClick={onAdd} 
-              className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all active:scale-95"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-blue-600 text-white rounded-xl sm:rounded-2xl font-black hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all active:scale-95 text-sm"
             >
-              <Plus className="w-5 h-5" /> New Report
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" /> New Report
             </button>
           )}
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="relative mb-8">
-        <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+      <div className="relative mb-6 sm:mb-8">
+        <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5" />
         <input 
           type="text" 
           placeholder="Search vessel, author, or compartment..." 
-          className="w-full pl-14 pr-6 py-5 bg-white border border-slate-200 rounded-[2rem] shadow-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium text-slate-600"
+          className="w-full pl-12 sm:pl-14 pr-4 sm:pr-6 py-4 sm:py-5 bg-white border border-slate-200 rounded-2xl sm:rounded-[2rem] shadow-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium text-slate-600 text-sm sm:text-base"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
