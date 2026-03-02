@@ -1,0 +1,7 @@
+{
+  "name": "Marine Flooring LLC - Report Manager",
+  "description": "A comprehensive system for Marine Flooring LLC to manage CVN74 Weekly Reports, featuring automated parsing via Gemini API and data visualization. (v1.0.1)",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
